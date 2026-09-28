@@ -1,0 +1,85 @@
+Initial Board:
+[1, 2, 3]
+[0, 4, 6]
+[7, 5, 8]
+
+Goal Board:
+[1, 2, 3]
+[4, 5, 6]
+[7, 8, 0]
+
+DFS Solution Found:
+DFS Path Cost: 13 moves
+DFS Transition States:
+--- Initial State ---
+[1, 2, 3]
+[0, 4, 6]
+[7, 5, 8]
+
+--- Step 1: Move Up ---
+[0, 2, 3]
+[1, 4, 6]
+[7, 5, 8]
+
+--- Step 2: Move Right ---
+[2, 0, 3]
+[1, 4, 6]
+[7, 5, 8]
+
+--- Step 3: Move Down ---
+[2, 4, 3]
+[1, 0, 6]
+[7, 5, 8]
+
+--- Step 4: Move Down ---
+[2, 4, 3]
+[1, 5, 6]
+[7, 0, 8]
+
+--- Step 5: Move Right ---
+[2, 4, 3]
+[1, 5, 6]
+[7, 8, 0]
+
+--- Step 6: Move Up ---
+[2, 4, 3]
+[1, 5, 0]
+[7, 8, 6]
+
+--- Step 7: Move Left ---
+[2, 4, 3]
+[1, 0, 5]
+[7, 8, 6]
+
+--- Step 8: Move Up ---
+[2, 0, 3]
+[1, 4, 5]
+[7, 8, 6]
+
+--- Step 9: Move Left ---
+[0, 2, 3]
+[1, 4, 5]
+[7, 8, 6]
+
+--- Step 10: Move Down ---
+[1, 2, 3]
+[0, 4, 5]
+[7, 8, 6]
+
+--- Step 11: Move Right ---
+[1, 2, 3]
+[4, 0, 5]
+[7, 8, 6]
+
+--- Step 12: Move Right ---
+[1, 2, 3]
+[4, 5, 0]
+[7, 8, 6]
+
+--- Step 13: Move Down ---
+[1, 2, 3]
+[4, 5, 6]
+[7, 8, 0]
+
+NAME : Chinmayi L C
+USN : 1WN24CS078
