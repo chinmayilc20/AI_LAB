@@ -1,0 +1,28 @@
+def depth_limited_search(node, goal_board, limit, visited):
+    if node.is_goal(goal_board):
+        return node
+    if node.depth == limit:
+        return None
+       
+    board_tuple = tuple(tuple(row) for row in node.board)
+    visited.add(board_tuple)
+    for succ in node.get_successors():
+        succ_tuple = tuple(tuple(row) for row in succ.board)
+        if succ_tuple not in visited:
+            result = depth_limited_search(succ, goal_board, limit, visited)
+            if result is not None:
+                return result
+    visited.remove(board_tuple)
+    return None
+
+def solve_ids(initial_board, goal_board, max_limit=30):
+    for limit in range(max_limit + 1):
+        visited = set()
+        start_node = Node(initial_board)
+        result = depth_limited_search(start_node, goal_board, limit, visited)
+        if result is not None:
+            return result.get_path()
+    return None
+print("IDS Moves:", solve_ids(initial, goal))
+print("NAME : Chinmayi L C")
+print("USN : 1WN24CS078")
