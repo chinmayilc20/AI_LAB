@@ -1,0 +1,64 @@
+class Node:
+    def __init__(self, board, parent=None, move=None, depth=0):
+        self.board = board
+        self.parent = parent
+        self.move = move
+        self.depth = depth
+        self.blank_pos = self.find_blank()
+
+    def find_blank(self):
+        for r in range(3):
+            for c in range(3):
+                if self.board[r][c] == 0:
+                    return (r, c)
+        return None
+
+    def get_successors(self):
+        successors = []
+        r, c = self.blank_pos
+        deltas = [(-1, 0, "Up"), (1, 0, "Down"), (0, -1, "Left"), (0, 1, "Right")]
+        for dr, dc, move_name in deltas:
+            nr, nc = r + dr, c + dc
+            if 0 <= nr < 3 and 0 <= nc < 3:
+                new_board = [row[:] for row in self.board]
+                new_board[r][c], new_board[nr][nc] = new_board[nr][nc], new_board[r][c]
+                successors.append(Node(new_board, self, move_name, self.depth + 1))
+        return successors
+
+    def is_goal(self, goal):
+        return self.board == goal
+
+    def get_path(self):
+        node, path = self, []
+        while node:
+            path.append(node.move)
+            node = node.parent
+        return path[::-1][1:]
+
+def solve_dfs(initial_board, goal_board, max_depth=20):
+    start_node = Node(initial_board)
+    stack = [start_node]
+    visited = set()
+   
+    while stack:
+        current = stack.pop()
+        board_tuple = tuple(tuple(row) for row in current.board)
+       
+        if current.is_goal(goal_board):
+            return current.get_path()
+           
+        if board_tuple not in visited:
+            visited.add(board_tuple)
+            if current.depth < max_depth:
+                for succ in reversed(current.get_successors()):
+                    succ_tuple = tuple(tuple(row) for row in succ.board)
+                    if succ_tuple not in visited:
+                        stack.append(succ)
+    return None
+
+
+initial = [[1, 2, 3], [0, 4, 6], [7, 5, 8]]
+goal =    [[1, 2, 3], [4, 5, 6], [7, 8, 0]]
+print("DFS Moves:", solve_dfs(initial, goal))
+print("NAME : Chinmayi L C")
+print("USN : 1WN24CS078") 
