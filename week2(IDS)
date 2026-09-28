@@ -3,7 +3,7 @@ def depth_limited_search(node, goal_board, limit, visited):
         return node
     if node.depth == limit:
         return None
-       
+
     board_tuple = tuple(tuple(row) for row in node.board)
     visited.add(board_tuple)
     for succ in node.get_successors():
@@ -21,8 +21,27 @@ def solve_ids(initial_board, goal_board, max_limit=30):
         start_node = Node(initial_board)
         result = depth_limited_search(start_node, goal_board, limit, visited)
         if result is not None:
-            return result.get_path()
-    return None
-print("IDS Moves:", solve_ids(initial, goal))
+            return result.get_path() # get_path now returns (moves, board_states)
+    return None, None # For consistency, also return None for moves and board_states
+
+moves_ids, board_states_ids = solve_ids(initial, goal)
+
+if moves_ids:
+    print("\nIDS Solution Found:")
+    print(f"IDS Path Cost: {len(moves_ids)} moves")
+    print("IDS Transition States:")
+    print("--- Initial State ---")
+    for row in board_states_ids[0]:
+        print(row)
+    print()
+
+    for i in range(len(moves_ids)):
+        print(f"--- Step {i+1}: Move {moves_ids[i]} ---")
+        for row in board_states_ids[i+1]:
+            print(row)
+        print()
+else:
+    print("\nIDS: No solution found within the maximum depth.")
+
 print("NAME : Chinmayi L C")
 print("USN : 1WN24CS078")
